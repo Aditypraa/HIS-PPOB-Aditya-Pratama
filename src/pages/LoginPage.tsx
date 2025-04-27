@@ -56,7 +56,27 @@ function LoginPage() {
           navigate("/"); // Navigate home even if fetch fails
         }
       }
-    } catch (error) {
+    } catch (error: any) {
+      // Handle API error responses
+      let errorMessage = "Terjadi kesalahan saat login.";
+
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        const { status, data } = error.response;
+
+        if (status === 400) {
+          errorMessage = "Email atau password salah.";
+        } else if (status === 401) {
+          errorMessage = "Email atau password tidak valid.";
+        } else if (data && data.message) {
+          errorMessage = data.message;
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      setFormError(errorMessage);
       dispatch({ type: "SET_ERROR", payload: error });
       dispatch({ type: "SET_LOADING", payload: false });
     }
