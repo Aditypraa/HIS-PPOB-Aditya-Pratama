@@ -1,12 +1,11 @@
 import axios, { AxiosError } from "axios";
 import { User, ApiResponse, Banner, Service, Transaction } from "../types";
 
-// --- API Configuration ---
-const API_BASE_URL = "https://take-home-test-api.nutech-integrasi.com";
+console.log("API URL:", import.meta.env.VITE_API_URL);
 
 // Create axios instance
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
