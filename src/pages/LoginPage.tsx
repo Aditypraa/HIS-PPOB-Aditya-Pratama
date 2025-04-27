@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { Mail, Lock } from "lucide-react";
 import Button from "../components/common/Button";
 import InputField from "../components/common/InputField";
-import apiService from "../api";
 import Illustrasi_Login from "../assets/Illustrasi_Login.png";
+import apiService from "../api/apiService";
 
 function LoginPage() {
   const { state, dispatch } = useContext(AppContext);

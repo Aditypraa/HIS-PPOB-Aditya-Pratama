@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useReducer, createContext, Dispatch } from "react";
 import { initialState } from "./initialState";
 import { appReducer } from "./reducer";
@@ -14,7 +15,9 @@ export const AppContext = createContext<AppContextType>({
   dispatch: () => null,
 });
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   return (

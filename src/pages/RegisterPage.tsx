@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { Mail, User, Lock } from "lucide-react";
 import Button from "../components/common/Button";
 import InputField from "../components/common/InputField";
-import apiService from "../api";
 import Illustrasi_Login from "../assets/Illustrasi_Login.png";
+import apiService from "../api/apiService";
 
 function RegisterPage() {
   const { state, dispatch } = useContext(AppContext);
@@ -17,7 +18,7 @@ function RegisterPage() {
   const [formError, setFormError] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: any) => {
     e.preventDefault();
     setFormError("");
     dispatch({ type: "CLEAR_ERROR" });
@@ -165,10 +166,6 @@ function RegisterPage() {
           src={Illustrasi_Login}
           alt="Ilustrasi Registrasi"
           className="max-w-sm lg:max-w-md xl:max-w-lg object-contain z-10 rounded-lg"
-          onError={(e) =>
-            (e.target.src =
-              "https://placehold.co/400x400/cccccc/ffffff?text=Gagal+Muat")
-          }
         />
         {/* Decorative elements */}
         <div className="absolute top-10 right-10 w-12 h-12 bg-yellow-200 rounded-full opacity-50"></div>{" "}

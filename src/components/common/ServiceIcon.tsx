@@ -1,4 +1,4 @@
-import { getFallbackIcon } from '../../utils/serviceIcons';
+import { getFallbackIcon } from "../../utils/serviceIcons";
 
 interface ServiceIconProps {
   iconUrl: string;
@@ -7,7 +7,12 @@ interface ServiceIconProps {
   onClick: () => void;
 }
 
-function ServiceIcon({ iconUrl, label, onClick, serviceCode }: ServiceIconProps) {
+function ServiceIcon({
+  iconUrl,
+  label,
+  onClick,
+  serviceCode,
+}: ServiceIconProps) {
   const FallbackIcon = getFallbackIcon(serviceCode);
 
   return (
@@ -20,14 +25,16 @@ function ServiceIcon({ iconUrl, label, onClick, serviceCode }: ServiceIconProps)
           src={iconUrl}
           alt={label}
           className="w-full h-full object-contain"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-            (e.target as HTMLImageElement).nextElementSibling!.style.display = 'block';
-          }}
         />
-        <FallbackIcon className="text-gray-600 group-hover:text-red-600" size={24} style={{ display: 'none' }} />
+        <FallbackIcon
+          className="text-gray-600 group-hover:text-red-600"
+          size={24}
+          style={{ display: "none" }}
+        />
       </div>
-      <span className="text-xs text-gray-700 font-medium group-hover:text-red-700">{label}</span>
+      <span className="text-xs text-gray-700 font-medium group-hover:text-red-700">
+        {label}
+      </span>
     </button>
   );
 }

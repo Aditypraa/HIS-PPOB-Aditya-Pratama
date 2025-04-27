@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { AppAction, AppState } from "../types";
 import { initialState } from "./initialState";
 

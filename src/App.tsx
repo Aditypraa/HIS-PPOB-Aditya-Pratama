@@ -1,11 +1,12 @@
-import { useEffect, useContext } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useContext } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Loader2 } from 'lucide-react';
-import { AppContext } from './contexts/AppContext';
-import AppRoutes from './routes';
-import apiService from './api';
-import ErrorDisplay from './components/common/ErrorDisplay';
-import { AppProvider } from './contexts/AppContext';
+import { Loader2 } from "lucide-react";
+import { AppContext } from "./contexts/AppContext";
+import AppRoutes from "./routes";
+import ErrorDisplay from "./components/common/ErrorDisplay";
+import { AppProvider } from "./contexts/AppContext";
+import apiService from "./api/apiService";
 
 // App with router
 function AppWithProvider() {
@@ -14,33 +15,36 @@ function AppWithProvider() {
   // Check token validity on initial load
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem("authToken");
       if (!token) {
         if (state.authToken) {
-          dispatch({ type: 'LOGOUT' });
+          dispatch({ type: "LOGOUT" });
         }
         return;
       }
 
       if (!state.user) {
-        dispatch({ type: 'SET_LOADING', payload: true });
-        dispatch({ type: 'CLEAR_ERROR' });
+        dispatch({ type: "SET_LOADING", payload: true });
+        dispatch({ type: "CLEAR_ERROR" });
         try {
           const profileRes = await apiService.getProfile();
-          dispatch({ type: 'SET_USER', payload: profileRes.data });
+          dispatch({ type: "SET_USER", payload: profileRes.data });
 
           const balanceRes = await apiService.getBalance();
-          dispatch({ type: 'SET_BALANCE', payload: balanceRes.data.balance });
+          dispatch({ type: "SET_BALANCE", payload: balanceRes.data.balance });
         } catch (error) {
           console.error("Token validation failed:", error);
           const typedError = error as any;
           if (typedError?.status === 401 || typedError?.status === 108) {
-            dispatch({ type: 'LOGOUT' });
+            dispatch({ type: "LOGOUT" });
           } else {
-            dispatch({ type: 'SET_ERROR', payload: 'Gagal memverifikasi sesi Anda.' });
+            dispatch({
+              type: "SET_ERROR",
+              payload: "Gagal memverifikasi sesi Anda.",
+            });
           }
         } finally {
-          dispatch({ type: 'SET_LOADING', payload: false });
+          dispatch({ type: "SET_LOADING", payload: false });
         }
       }
     };

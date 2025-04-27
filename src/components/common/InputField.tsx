@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Eye, EyeOff, LucideIcon } from 'lucide-react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
+import { Eye, EyeOff, LucideIcon } from "lucide-react";
 
 interface InputFieldProps {
   icon: LucideIcon;
@@ -15,7 +16,7 @@ interface InputFieldProps {
 // Input field component
 function InputField({
   icon: Icon,
-  type = 'text',
+  type = "text",
   placeholder,
   value,
   onChange,
@@ -24,7 +25,7 @@ function InputField({
   ...props
 }: InputFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const isPassword = type === 'password';
+  const isPassword = type === "password";
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -32,20 +33,40 @@ function InputField({
 
   return (
     <div className="mb-4">
-      <div className={`flex items-center border ${error ? 'border-red-500' : 'border-gray-300'} rounded-md p-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-300 focus-within:border-red-400 ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}>
-        {Icon && <Icon className={`mr-3 flex-shrink-0 ${disabled ? 'text-gray-400' : 'text-gray-500'}`} size={20} />}
+      <div
+        className={`flex items-center border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded-md p-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-300 focus-within:border-red-400 ${
+          disabled ? "bg-gray-100 cursor-not-allowed" : ""
+        }`}
+      >
+        {Icon && (
+          <Icon
+            className={`mr-3 flex-shrink-0 ${
+              disabled ? "text-gray-400" : "text-gray-500"
+            }`}
+            size={20}
+          />
+        )}
         <input
-          type={isPassword ? (showPassword ? 'text' : 'password') : type}
+          type={isPassword ? (showPassword ? "text" : "password") : type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={`flex-grow focus:outline-none text-sm bg-transparent ${disabled ? 'text-gray-500 cursor-not-allowed' : ''}`}
+          className={`flex-grow focus:outline-none text-sm bg-transparent ${
+            disabled ? "text-gray-500 cursor-not-allowed" : ""
+          }`}
           required
           disabled={disabled}
           {...props} // Pass other props like min, step for number input
         />
         {isPassword && (
-          <button type="button" onClick={togglePasswordVisibility} className="text-gray-500 focus:outline-none ml-2" disabled={disabled}>
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="text-gray-500 focus:outline-none ml-2"
+            disabled={disabled}
+          >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
